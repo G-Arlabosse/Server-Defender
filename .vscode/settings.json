@@ -67,5 +67,8 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Server-Defender.slnx"
+    "dotnet.defaultSolution": "Server-Defender.slnx",
+    "cSpell.words": [
+        "Tilemap"
+    ]
 }
