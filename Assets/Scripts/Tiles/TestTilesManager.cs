@@ -25,14 +25,18 @@ public class TestTilesManager : MonoBehaviour
 
     tile2 = ScriptableObject.CreateInstance<Tile>();
     tile2.gameObject = objectTile2;
+
+    tileMap.SetTile(location, tile1);
+    tileMap.SetTile(location + new Vector3Int(0,1), tile2);
+    tileMap.SetTile(location + new Vector3Int(0,-1), tile2);
+    tileMap.SetTile(location + new Vector3Int(1,0), tile2);
+
+    print(tileMap.GetTile<Tile>(location).gameObject.name);
  }
 
  // Update is called once per frame
  void Update()
     {
-        tileMap.SetTile(location, tile1);
-        tileMap.SetTile(location + new Vector3Int(0,1), tile2);
-        tileMap.SetTile(location + new Vector3Int(0,-1), tile2);
-        tileMap.SetTile(location + new Vector3Int(1,0), tile2);
+        
     }
 }
