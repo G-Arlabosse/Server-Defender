@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using NUnit.Framework;
+using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
@@ -9,84 +11,44 @@ using UnityEngine.Tilemaps;
 
 public class TilesManager : MonoBehaviour
 {
-    
     [SerializeField] private Tilemap tileMap;
 
-    public enum TileType {NONE, BLANK, WALL}
-    private const int MAX_TILE_TYPE = 3;
 
-    [Serializable]
-    private class TileUnit
+    public void SetTile(TilesLibrary.TileType id, Vector3Int position)
     {
-        public TileType id;
-        public GameObject gameObject;
+        tileMap.SetTile(position, TilesLibrary.GetTile(id));
     }
 
-    
-
-    [SerializeField] private List<TileUnit> tiles = new List<TileUnit>();
-    static private Dictionary<TileType, Tile> TileDictionary = new Dictionary<TileType, Tile>();
-
-    private int lastNum = 0;
-
-    private Tile createTile(GameObject gameObject)
+    public void SetTile(GameObject tileObject, Vector3Int position)
     {
-        Tile newTile = ScriptableObject.CreateInstance<Tile>();
-        newTile.gameObject = gameObject;
-
-        return newTile;
+        tileMap.SetTile(position, TilesLibrary.createTile(tileObject));
     }
 
-    private void OnValidate()
-    {  
-
-        int nmbTile = tiles.Count;
-
-        if (nmbTile > MAX_TILE_TYPE)
-        {
-            while (tiles.Count > MAX_TILE_TYPE)
-            {
-                tiles.RemoveAt(MAX_TILE_TYPE);
-            }
-            return;
-        }
-
-        if (lastNum + 1 == nmbTile)
-        {
-            TileType newType = (TileType) (nmbTile - 1);
-            tiles[nmbTile - 1].id = newType;
-            GameObject tileGameObject = tiles[nmbTile - 1].gameObject;
-
-            TileDictionary[newType] = createTile(tileGameObject);
-
-        }
-        else
-        {
-            TileDictionary = new Dictionary<TileType, Tile>();
-            foreach (TileUnit tileUnit in tiles)
-            {
-                TileDictionary[tileUnit.id] = createTile(tileUnit.gameObject);
-            }
-        }
-
-        lastNum = nmbTile;
-    }   
-
-    public Tile GetTile(TileType id)
+    public void setTiles(TilesLibrary.TileType id, Vector2Int begin, Vector2Int end)
     {
-        Assert.IsTrue(TileDictionary.ContainsKey(id));
+        Tile tile = TilesLibrary.GetTile(id);
 
-        return null;
+        for (int x = Mathf.Min(begin.x, end.x); x < Mathf.Max(begin.x, end.x); x++)
+            for (int y = Mathf.Min(begin.y, end.y); y < Mathf.Max(begin.y, end.y); y++)
+                tileMap.SetTile(new Vector3Int(x, y, 0), tile);
+        
+    }
+    public void setTiles(TilesLibrary.TileType id, int beginX, int beginY, int endX, int endY) 
+    { setTiles(id, new Vector2Int(beginX, beginY), new Vector2Int(endX, endY));}
+
+    public GameObject getPhysicalGameObject(Vector3Int position)
+    {
+        return tileMap.GetTile<Tile>(position).gameObject;
     }
 
-    public  void SetTile(TileType id, Vector3Int position)
+    public GameObject getGameObject(TilesLibrary.TileType id)
     {
-        tileMap.SetTile(position, GetTile(id));
+        return TilesLibrary.GetTile(id).gameObject;
     }
 
 
     private void Start()
     {
-        
+        setTiles(TilesLibrary.TileType.BLANK, 0, 0, 4, 4);
     }
 }

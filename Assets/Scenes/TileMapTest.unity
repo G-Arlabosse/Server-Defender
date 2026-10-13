@@ -119,6 +119,69 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &13626349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 13626351}
+  - component: {fileID: 13626350}
+  - component: {fileID: 13626352}
+  m_Layer: 0
+  m_Name: TilesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &13626350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13626349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed61654a40ef6a49aad9a6a040f2a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TilesManager
+  tileMap: {fileID: 1676705419}
+--- !u!4 &13626351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13626349}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5038, y: -0, z: 0.00362}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &13626352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13626349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb830790cc63424abb458bb59271088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TilesLibrary
+  tiles:
+  - id: 0
+    gameObject: {fileID: 5268056683059087578, guid: 2d3ebd96a2fd2744980ef4152ccbf050, type: 3}
+  - id: 1
+    gameObject: {fileID: 1327892403250229954, guid: 225bfd6727bb55c4d89d3b8d72c778a2, type: 3}
 --- !u!1 &734139433
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +538,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2096902592}
   - component: {fileID: 2096902591}
-  - component: {fileID: 2096902593}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -511,21 +573,6 @@ Transform:
   - {fileID: 1676705417}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2096902593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096902590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 161c90b3f41103a42b5eaef73136364f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestTilesManager
-  tileMap: {fileID: 1676705419}
-  objectTile1: {fileID: 5268056683059087578, guid: 2d3ebd96a2fd2744980ef4152ccbf050, type: 3}
-  objectTile2: {fileID: 1327892403250229954, guid: 225bfd6727bb55c4d89d3b8d72c778a2, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -533,3 +580,4 @@ SceneRoots:
   - {fileID: 1196425201}
   - {fileID: 734139435}
   - {fileID: 2096902592}
+  - {fileID: 13626351}
