@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
@@ -31,12 +32,10 @@ public class TestTilesManager : MonoBehaviour
     tileMap.SetTile(location + new Vector3Int(0,-1), tile2);
     tileMap.SetTile(location + new Vector3Int(1,0), tile2);
 
-    print(tileMap.GetTile<Tile>(location).gameObject.name);
+    //(tileMap.GetTile<Tile>(location).gameObject.name);
+
  }
 
- // Update is called once per frame
- void Update()
-    {
-        
-    }
+
+
 }
