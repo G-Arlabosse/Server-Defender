@@ -45,7 +45,7 @@ public class NoiseGenerator : MonoBehaviour
 
                 float pix = Mathf.PerlinNoise(xCoord, yCoord);
 
-                Color color = new Color(pix,pix, pix);
+                Color color = new Color(pix, pix, pix);
 
                 perlin.SetPixel(x , y , color);
             }
