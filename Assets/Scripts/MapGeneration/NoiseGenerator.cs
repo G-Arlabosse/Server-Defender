@@ -59,6 +59,12 @@ public class NoiseGenerator : MonoBehaviour
         return perlin;
     }
 
+    public float[,] GeneratePerlinWorms(int width, int height, float scale)
+    {
+        float[,] worms = new float[width, height];
+        return worms;
+    }
+
     /// <summary>
     /// Convert an array of noise value to a Texture2D in grayscale
     /// </summary>
