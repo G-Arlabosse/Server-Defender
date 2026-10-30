@@ -24,7 +24,7 @@ public class DetectionManager : MonoBehaviour
         if (body.tag == "Enemy")
         {
             print("enemy located");
-            shooterManager.target = body;
+            shooterManager.targets.Add(body);
         }
     }
 

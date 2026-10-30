@@ -150,6 +150,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TilesManager
   tileMap: {fileID: 1676705419}
+  baseLocation: {x: 5, y: 5}
+  enemySpawnerLocation:
+  - {x: 0, y: 5}
+  - {x: 5, y: 0}
+  - {x: 10, y: 10}
 --- !u!4 &13626351
 Transform:
   m_ObjectHideFlags: 0
@@ -178,10 +183,76 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TilesLibrary
   tiles:
-  - id: 0
-    gameObject: {fileID: 5268056683059087578, guid: 2d3ebd96a2fd2744980ef4152ccbf050, type: 3}
   - id: 1
+    gameObject: {fileID: 5497987287217121847, guid: 0977545ce2371a54786279c3485aa417, type: 3}
+    canBeCross: 1
+  - id: 3
+    gameObject: {fileID: 5268056683059087578, guid: 2d3ebd96a2fd2744980ef4152ccbf050, type: 3}
+    canBeCross: 0
+  - id: 4
     gameObject: {fileID: 1327892403250229954, guid: 225bfd6727bb55c4d89d3b8d72c778a2, type: 3}
+    canBeCross: 0
+--- !u!1 &272328691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 272328693}
+  - component: {fileID: 272328692}
+  - component: {fileID: 272328694}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &272328692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272328691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e043a0b2b5e169541a85eed034fd0ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyFactory
+  prefab: {fileID: 2014885500257711029, guid: ec13dd48901b7ae4f93f940a52fcf191, type: 3}
+  nmbPrepared: 3
+--- !u!4 &272328693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272328691}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.74687, y: 0, z: 4.28501}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &272328694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272328691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8fd1cc79b5d0b6428dc92c65a659fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
+  tilesManager: {fileID: 13626350}
+  enemyFactory: {fileID: 272328692}
 --- !u!1 &734139433
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,6 +472,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1563560363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1563560366}
+  - component: {fileID: 1563560365}
+  - component: {fileID: 1563560364}
+  m_Layer: 0
+  m_Name: TowerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1563560364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563560363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d041dd6b2310a045b99a60704e94040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerManager
+--- !u!114 &1563560365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563560363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12ee622edac4c41469d73614d27131a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerFactories
+  baseTower: {fileID: 4963770512448261041, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+  tilesManager: {fileID: 13626350}
+--- !u!4 &1563560366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563560363}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.71539, y: 0, z: 2.19535}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1676705416
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,3 +711,5 @@ SceneRoots:
   - {fileID: 734139435}
   - {fileID: 2096902592}
   - {fileID: 13626351}
+  - {fileID: 272328693}
+  - {fileID: 1563560366}
