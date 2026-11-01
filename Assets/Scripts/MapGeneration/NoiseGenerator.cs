@@ -110,6 +110,40 @@ public class NoiseGenerator : MonoBehaviour
     }
 
     /// <summary>
+    /// Return an array with the gradient of the noise passed in argument
+    /// </summary>
+    /// <param name="noiseArray"></param>
+    /// <returns></returns>
+    public Vector2[,] GetGradientFromNoise(float[,] noiseArray)
+    {
+        int width = noiseArray.GetLength(0);
+        int height = noiseArray.GetLength(1);
+
+        Vector2[,] grad = new Vector2[width, height];
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+
+                int right = Math.Max(0, x - 1);
+                int left = Math.Min(width - 1, x + 1);
+
+                int top = Math.Max(0, y - 1);
+                int down = Math.Min(height - 1, y + 1);
+
+                float dx = (noiseArray[left, y] -  noiseArray[right, y])/(left - right == 0 ? 1 : 2 );
+                float dy = (noiseArray[x, top] - noiseArray[x, down])/(top - down == 0 ? 1 : 2 );
+
+                grad[x, y] = new Vector2(dx, dy);
+
+            }
+        }
+
+        return grad;
+    }
+
+    /// <summary>
     /// Generate a random float to add randomness to the noise generation
     /// </summary>
     /// <returns></returns>
