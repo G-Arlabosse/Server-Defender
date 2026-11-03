@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -103,6 +104,21 @@ public class PerlinWorm : MonoBehaviour
             {
                 var point = Move();
                 points.Add(point);
+            }
+        }
+
+        //making sure to reach convergance point
+        if (moveToConvergancepoint)
+        {
+            while (Vector2.Distance(this.convergancePoint, currentPosition) > 1)
+            {
+                weight = 0.9f;
+                var result = MoveTowardsConvergancePoint();
+                points.Add(result);
+                if (Vector2.Distance(this.convergancePoint, result) < 1)
+                {
+                    break;
+                }
             }
         }
 
