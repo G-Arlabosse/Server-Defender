@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -59,9 +61,17 @@ static public class NoiseGenerator
         return perlin;
     }
 
-    static public float[,] GeneratePerlinWorms(int width, int height, float scale)
+    
+    static public float[,] GeneratePerlinWorms(int width, int height, float scale, int minWormLenght, int maxWormLength, int wormWidth)
     {
+
         float[,] worms = new float[width, height];
+
+        float[,] perlinNoise = GeneratePerlinNoise(width, height, scale);
+        Vector2[,] perlinGrad = GetGradientFromNoise(perlinNoise);
+        List<Vector2Int> localMaxima = GetLocalMaxima(perlinNoise);
+
+
         return worms;
     }
 
@@ -150,5 +160,99 @@ static public class NoiseGenerator
     static private float GenerateOffset()
     {
         return UnityEngine.Random.Range(0f, 999999f);
+    }
+
+    /// <summary>
+    /// Return the list of the local maxima of the noise array
+    /// </summary>
+    /// <param name="noiseArray"></param>
+    /// <returns></returns>
+    static public List<Vector2Int> GetLocalMaxima(float[,] noiseArray)
+    {
+        List<Vector2Int> maxima = new List<Vector2Int>();
+
+        for (int i = 0; i < noiseArray.GetLength(0); i++)
+        {
+            for(int j = 0; j < noiseArray.GetLength(1); j++)
+            {
+                var noiseVal = noiseArray[i, j];
+                if(TestNeighbours(i, j, noiseArray, (neighbourNoise) => neighbourNoise > noiseVal))
+                {
+                    maxima.Add(new Vector2Int(i, j));
+                }
+            }
+        }
+
+        return maxima;
+    }
+
+    /// <summary>
+    /// Return a list of the local minima of the noise array
+    /// </summary>
+    /// <param name="noiseArray"></param>
+    /// <returns></returns>
+    static public List<Vector2Int> GetLocalMinima(float[,] noiseArray)
+    {
+        List<Vector2Int> minima = new List<Vector2Int>();
+
+        for(int i = 0; i < noiseArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < noiseArray.GetLength(1); j++)
+            {
+                var noiseVal = noiseArray[i, j];
+                if (TestNeighbours(i, j,noiseArray, (neighboursNoise) => neighboursNoise < noiseVal))
+                {
+                    minima.Add(new Vector2Int(i, j));
+                }
+            }
+        }
+
+        return minima;
+    }
+
+
+    /// <summary>
+    /// List of all directions in Vector2Int
+    /// </summary>
+    static List<Vector2Int> directions = new List<Vector2Int>
+    {
+        new Vector2Int( 0, 1), //N
+        new Vector2Int( 1, 1), //NE
+        new Vector2Int( 1, 0), //E
+        new Vector2Int(-1, 1), //SE
+        new Vector2Int(-1, 0), //S
+        new Vector2Int(-1,-1), //SW
+        new Vector2Int( 0,-1), //W
+        new Vector2Int( 1,-1)  //NW
+    };
+
+    /// <summary>
+    /// Test if the neighbours of the position all verifiy the negative of failCondition 
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="array"></param>
+    /// <param name="testFunction"></param>
+    /// <returns></returns>
+    static private bool TestNeighbours(int x, int y , float[,] array, Func<float, bool> failCondition)
+    {
+        foreach (var dir in directions)
+        {
+            var newCoord = new Vector2Int(x + dir.x, y + dir.y);
+            
+            //test if the new coord is in the array
+            if(newCoord.x < 0 || newCoord.x >= array.GetLength(0) || newCoord.y < 0 || newCoord.y >= array.GetLength(1))
+            {
+                continue;
+            }
+
+            //if the new coord is in the array we test the array value
+            if (failCondition(array[newCoord.x, newCoord.y])) {
+                return false;
+            }
+
+        }
+        return true;
+
     }
 }
