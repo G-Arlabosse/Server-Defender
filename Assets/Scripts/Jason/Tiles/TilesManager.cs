@@ -109,10 +109,17 @@ public class TilesManager : MonoBehaviour
         return new Vector3(baseLocation.x + 0.5f, 0, baseLocation.y + 0.5f);
     }
 
+    public void ResetTileMap()
+    {
+        tileMap.ClearAllTiles();
+    }
+
+
+
     private void Start()
     {
         singleton = this;
 
-        CreateRectangle(10,10);
+        //CreateRectangle(10,10);
     }
 }

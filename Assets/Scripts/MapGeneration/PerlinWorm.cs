@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PerlinWorm : MonoBehaviour
+public class PerlinWorm 
 {
-    //https://github.com/SunnyValleyStudio/Perlin-Worms-Unity-tutorial/blob/main/Scripts/NoiseHelper.cs
-
     private Vector2 currentDirection;
     private Vector2 currentPosition;
     private Vector2 convergancePoint;
@@ -51,6 +49,10 @@ public class PerlinWorm : MonoBehaviour
     /// <returns></returns>
     private Vector2 GetPerlinDirection()
     {
+        if (currentPosition.x < 0 || currentPosition.x >= perlinGradient.GetLength(0) || currentPosition.y < 0 || currentPosition.y >= perlinGradient.GetLength(1))
+        {
+            return Vector2.zero;
+        }
         Vector2 grad = perlinGradient[(int)currentPosition.x, (int)currentPosition.y];
         Vector2 dir = new Vector2(-grad.y, grad.x);
 
@@ -65,7 +67,7 @@ public class PerlinWorm : MonoBehaviour
     public Vector2 MoveTowardsConvergancePoint()
     {
         Vector2 direction = GetPerlinDirection();
-        Vector2 directionToConvergancePoint = (currentPosition - convergancePoint).normalized;
+        Vector2 directionToConvergancePoint = (convergancePoint - currentPosition).normalized;
         currentPosition += (direction * (1 - weight) + directionToConvergancePoint * weight).normalized;
         return currentPosition;
 

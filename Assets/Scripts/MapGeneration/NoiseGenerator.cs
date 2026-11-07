@@ -1,38 +1,11 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 
 
 static public class NoiseGenerator 
 {
-    //Renderer renderer;
-    //InputAction click;
-
-    //[SerializeField] [Range(0f,1f)] float treshold = 0.5f;
-
-    //float[,] noise;
-    //float[,] binaryNoise;
-    ////for testing purpose, will be removed later
-    //private void Start()
-    //{
-    //    click = InputSystem.actions.FindAction("Click");
-    //    renderer = GetComponent<Renderer>();
-    //    noise = GeneratePerlinNoise(200, 200, 20);
-    //    binaryNoise = GetBinaryNoise(noise, treshold);
-    //    renderer.material.mainTexture = GetTexture2DFromNoiseArray(binaryNoise);
-    //}
-
-    //private void Update()
-    //{
-    //    if (click.WasPressedThisFrame())
-    //    {
-    //        renderer.material.mainTexture = GetTexture2DFromNoiseArray(GetBinaryNoise(noise,treshold));
-    //    }
-    //}
-
     /// <summary>
     /// Generate an array of floats using Perlin Noise with Mathf.PerlinNoise function
     /// </summary>
@@ -47,12 +20,12 @@ static public class NoiseGenerator
         float xOffSet = GenerateOffset();
         float yOffSet = GenerateOffset();
 
-        for(int x = 0; x < height; x++)
+        for(int x = 0; x < width; x++)
         {
-            for (int y = 0; y < width; y++)
+            for (int y = 0; y < height; y++)
             {
-                float xCoord = (float) x / height * scale + xOffSet;
-                float yCoord = (float) y / width * scale + yOffSet;
+                float xCoord = (float) x / width * scale + xOffSet;
+                float yCoord = (float) y / height * scale + yOffSet;
 
                 float pix = Mathf.PerlinNoise(xCoord, yCoord);
 
@@ -72,54 +45,71 @@ static public class NoiseGenerator
     /// <param name="wormWidth"></param>
     /// <param name="distTreshold"></param>
     /// <returns></returns>
-    static public float[,] GeneratePerlinWorms(int width, int height, float scale, int wormWidth, float distTreshold)
+    static public float[,] GeneratePerlinWorms(int width, int height, float scale, int wormWidth, float distTreshold, Vector2 centerPos, int nbWorms, int wormLength)
     {
 
         List<Vector2> wormPoints = new List<Vector2>();
-
+        int wormCount = 0;
         //perlin noise variables
         float[,] perlinNoise = GeneratePerlinNoise(width, height, scale);
         Vector2[,] perlinGrad = GetGradientFromNoise(perlinNoise);
         List<Vector2Int> localMaxima = GetLocalMaxima(perlinNoise);
 
         //get the maxima closest to the center of the map
-        Vector2 center = new Vector2((float)width / 2, (float)height / 2);
-        var startPoint = localMaxima.OrderBy(pos => Vector2.Distance(pos, center)).First();
+        var startPoint = localMaxima.OrderBy(pos => Vector2.Distance(pos, centerPos)).First();
         localMaxima.Remove(startPoint);
 
 
         Vector2Int currentPosition = startPoint;
         Vector2Int destination;
-        int wormLength;
         PerlinWorm worm;
-        
-        while(localMaxima.Count > 0)
+        List<Vector2Int> visitedPoints = new List<Vector2Int>();
+        while(wormCount < nbWorms && localMaxima.Count > 0)
         {
-            //set destination or return to startPoint
-            if(currentPosition.Equals(startPoint))
+            if (wormCount < nbWorms / 2)
             {
-                destination = localMaxima.OrderBy(pos => Vector2.Distance(pos, startPoint)).First();
-            } else
-            {
-                destination = localMaxima.OrderBy(pos => Vector2.Distance(pos, currentPosition)).First();
-                if (Vector2.Distance(currentPosition, destination) > distTreshold)
+                //set destination or return to startPoint
+                if (currentPosition.Equals(startPoint))
+                {
+                    destination = localMaxima.OrderBy(pos => Vector2.Distance(pos, startPoint)).First();
+
+                }
+                if (Vector2.Distance(currentPosition, startPoint) > distTreshold)
                 {
                     currentPosition = startPoint;
                     continue;
                 }
+
+                destination = localMaxima.OrderBy(pos => Vector2.Distance(pos, currentPosition)).Where(pos => Vector2.Distance(startPoint, pos) >= Vector2.Distance(currentPosition, startPoint)).First();
+                if (destination == null)
+                {
+                    currentPosition = startPoint;
+                    continue;
+                }
+
+                //create the worm
+                worm = new PerlinWorm(perlinGrad, currentPosition, destination);
+                
+                //remove the visited position from the list
+                localMaxima.Remove(currentPosition);
+                visitedPoints.Add(currentPosition);
+                //set current position at destination
+                currentPosition = destination;
+                
             }
-            //chose an adapted length for the worm
-            wormLength = (int)Vector2.Distance(currentPosition, destination) * 2 ;
-            //create the worm
-            worm = new PerlinWorm(perlinGrad, currentPosition, destination);
+            else
+            {
+                currentPosition = localMaxima.ElementAt(UnityEngine.Random.Range(0, localMaxima.Count - 1));
+                destination = visitedPoints.OrderByDescending(pos => Vector2.Distance(pos, currentPosition)).Where(pos => Vector2.Distance(pos, currentPosition) < distTreshold).Any() ? visitedPoints.OrderByDescending(pos => Vector2.Distance(pos, currentPosition)).Where(pos => Vector2.Distance(pos, currentPosition) < distTreshold).First() : startPoint;
+                worm = new PerlinWorm(perlinGrad, currentPosition, destination);
+                localMaxima.Remove(currentPosition);
+                visitedPoints.Add(currentPosition);
+            }
             //get the points of the worm
             var results = worm.MoveLength(wormLength);
             //add the points to the list
             wormPoints.AddRange(results);
-            //remove the destination from the list
-            localMaxima.Remove(destination);
-            //set current position at destination
-            currentPosition = destination;
+            wormCount++;
 
         }
 
@@ -141,22 +131,34 @@ static public class NoiseGenerator
     {
         float[,] array = new float[width, height];
 
-        int randomWidth;
         foreach (var pos in worms)
         {
 
-            randomWidth = UnityEngine.Random.Range(width, width + width / 2);
-            for(int i = 0; i < randomWidth; i++)
+            
+            int x = (int)pos.x;
+            int y = (int)pos.y;
+            if (x < 0 || x >= width || y < 0 || y >= height)
             {
-                for (int j = 0; j < randomWidth; j++)
+                continue;
+            }
+            array[x, y] = 1f;
+            for(int i = 0; i < wormWidth; i++)
+            {
+                if(x + i < width)
                 {
-                    int x = (int)pos.x + i;
-                    int y = (int)pos.y + j;
-                    if (x < 0 || x >= width || y < 0 || y >= height)
-                    {
-                        continue;
-                    }
-                    array[x, y] = 1f;
+                    array[x + i, y] = 1f;
+                }
+                if (x - i >= 0)
+                {
+                    array[x - i, y] = 1f;                
+                }
+                if (y + i < height)
+                {
+                    array[x, y + i] = 1f;
+                }
+                if (y - i >= 0)
+                {
+                    array[x, y - i] = 1f;
                 }
             }
 
