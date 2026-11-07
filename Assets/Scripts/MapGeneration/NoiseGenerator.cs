@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -62,17 +63,105 @@ static public class NoiseGenerator
     }
 
     
-    static public float[,] GeneratePerlinWorms(int width, int height, float scale, int minWormLenght, int maxWormLength, int wormWidth)
+    /// <summary>
+    /// Creates and returns the array with Perlin Worms, converging to the center of the array
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <param name="scale"></param>
+    /// <param name="wormWidth"></param>
+    /// <param name="distTreshold"></param>
+    /// <returns></returns>
+    static public float[,] GeneratePerlinWorms(int width, int height, float scale, int wormWidth, float distTreshold)
     {
 
-        float[,] worms = new float[width, height];
+        List<Vector2> wormPoints = new List<Vector2>();
 
+        //perlin noise variables
         float[,] perlinNoise = GeneratePerlinNoise(width, height, scale);
         Vector2[,] perlinGrad = GetGradientFromNoise(perlinNoise);
         List<Vector2Int> localMaxima = GetLocalMaxima(perlinNoise);
 
+        //get the maxima closest to the center of the map
+        Vector2 center = new Vector2((float)width / 2, (float)height / 2);
+        var startPoint = localMaxima.OrderBy(pos => Vector2.Distance(pos, center)).First();
+        localMaxima.Remove(startPoint);
+
+
+        Vector2Int currentPosition = startPoint;
+        Vector2Int destination;
+        int wormLength;
+        PerlinWorm worm;
+        
+        while(localMaxima.Count > 0)
+        {
+            //set destination or return to startPoint
+            if(currentPosition.Equals(startPoint))
+            {
+                destination = localMaxima.OrderBy(pos => Vector2.Distance(pos, startPoint)).First();
+            } else
+            {
+                destination = localMaxima.OrderBy(pos => Vector2.Distance(pos, currentPosition)).First();
+                if (Vector2.Distance(currentPosition, destination) > distTreshold)
+                {
+                    currentPosition = startPoint;
+                    continue;
+                }
+            }
+            //chose an adapted length for the worm
+            wormLength = (int)Vector2.Distance(currentPosition, destination) * 2 ;
+            //create the worm
+            worm = new PerlinWorm(perlinGrad, currentPosition, destination);
+            //get the points of the worm
+            var results = worm.MoveLength(wormLength);
+            //add the points to the list
+            wormPoints.AddRange(results);
+            //remove the destination from the list
+            localMaxima.Remove(destination);
+            //set current position at destination
+            currentPosition = destination;
+
+        }
+
+        //place the points in the array
+        float[,] worms = PlaceWorms(wormPoints, wormWidth, width, height);
 
         return worms;
+    }
+
+    /// <summary>
+    /// Return an array with witdhen worms (1f : worm, 0f : nothing)
+    /// </summary>
+    /// <param name="worms"></param>
+    /// <param name="wormWidth"></param>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <returns></returns>
+    static private float[,] PlaceWorms(List<Vector2> worms, int wormWidth, int width, int height)
+    {
+        float[,] array = new float[width, height];
+
+        int randomWidth;
+        foreach (var pos in worms)
+        {
+
+            randomWidth = UnityEngine.Random.Range(width, width + width / 2);
+            for(int i = 0; i < randomWidth; i++)
+            {
+                for (int j = 0; j < randomWidth; j++)
+                {
+                    int x = (int)pos.x + i;
+                    int y = (int)pos.y + j;
+                    if (x < 0 || x >= width || y < 0 || y >= height)
+                    {
+                        continue;
+                    }
+                    array[x, y] = 1f;
+                }
+            }
+
+        }
+        return array; 
     }
 
     /// <summary>
