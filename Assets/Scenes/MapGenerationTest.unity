@@ -977,14 +977,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
   tilesManager: {fileID: 2091437994}
-  genType: 1
+  genType: 0
   width: 100
   height: 100
   perlinTreshold: 0.5
   scale: 10
-  wormWidth: 1
-  wormDistTreshold: 20
-  nbWorms: 5
+  wormWidth: 4
+  wormDistTreshold: 30
+  nbWorms: 75
+  wormLength: 60
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
