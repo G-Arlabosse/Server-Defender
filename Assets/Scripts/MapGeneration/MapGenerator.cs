@@ -5,12 +5,12 @@ public class MapGenerator : MonoBehaviour
 {
     [SerializeField] private TilesManager tilesManager;
 
-    enum GenType {PERLIN, WORMS};
+    enum GenType {PERLIN, WORMS, VORONOI};
 
     [SerializeField] private GenType genType;
 
     [Range(10, 1000)]
-    [SerializeField] private int width= 100;
+    [SerializeField] private int width = 100;
 
     [Range(10, 1000)]
     [SerializeField] private int height = 100;
@@ -18,7 +18,7 @@ public class MapGenerator : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float perlinTreshold = 0.5f;
 
-    [Range(0f, 200f)]
+    [Range(1f, 200f)]
     [SerializeField] private float scale = 10f;
 
     [Range(1, 20)]
@@ -32,6 +32,12 @@ public class MapGenerator : MonoBehaviour
 
     [Range(1, 500)]
     [SerializeField] private int wormLength = 10;
+
+    [Range(1f, 100f)]
+    [SerializeField] private float voronoiScale = 10f;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float voronoiTreshold = 0.5f;
 
     private float[,] mapArray;
     private Vector2Int startPosition; 
@@ -56,6 +62,9 @@ public class MapGenerator : MonoBehaviour
                 break;
             case GenType.WORMS:
                 mapArray = NoiseGenerator.GeneratePerlinWorms(width, height, scale, wormWidth, wormDistTreshold, new Vector2Int(width / 2, height / 2), nbWorms, wormLength);
+                break;
+            case GenType.VORONOI:
+                mapArray = NoiseGenerator.GetBinaryNoise(NoiseGenerator.GenerateVoronoiNoise(width, height, voronoiScale), voronoiTreshold);
                 break;
         }
 

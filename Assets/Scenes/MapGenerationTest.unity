@@ -986,6 +986,8 @@ MonoBehaviour:
   wormDistTreshold: 30
   nbWorms: 75
   wormLength: 60
+  voronoiScale: 10
+  voronoiTreshold: 0.35
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

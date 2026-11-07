@@ -166,6 +166,67 @@ static public class NoiseGenerator
         return array; 
     }
 
+
+    /// <summary>
+    /// Generate Voronoi noise
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <param name="scale"></param>
+    /// <returns></returns>
+    static public float[,] GenerateVoronoiNoise(int width, int height, float scale)
+    {
+        float[,] noise = new float[width, height];
+
+        Vector2[,] points = new Vector2[Mathf.CeilToInt(scale) + 2, Mathf.CeilToInt(scale) + 2];
+        int gridSize = points.GetLength(0);
+
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                points[x, y] = new Vector2(x + UnityEngine.Random.value, y + UnityEngine.Random.value);
+            }
+        }
+
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                Vector2 uv = new Vector2((float)i / width * scale,(float) j / height * scale);
+                Debug.Log(uv);
+                float minDist = float.MaxValue;
+
+                int x = (int)uv.x;
+                int y = (int)uv.y;
+
+                for (int k = -1; k < 1; k++)
+                {
+                    for (int l = -1; l < 1; l++)
+                    {
+                        int coordX = x + k;
+                        int coordY = y + l;
+
+                        if (coordX < 0 || coordX >= gridSize || coordY < 0 || coordY >= gridSize)
+                        {
+                            continue;
+                        }
+                        float dist = Vector2.Distance(uv, points[coordX, coordY]);
+                        minDist = MathF.Min(minDist, dist);
+
+
+                    }
+                }
+                float noiseValue = Mathf.Clamp01(minDist);
+                noise[i, j] = noiseValue;
+ 
+            }
+        }
+
+
+        return noise;
+    }
+
     /// <summary>
     /// Convert an array of noise value to a Texture2D in grayscale
     /// </summary>
