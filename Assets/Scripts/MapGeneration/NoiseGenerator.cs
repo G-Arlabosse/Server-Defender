@@ -194,7 +194,6 @@ static public class NoiseGenerator
             for (int j = 0; j < height; j++)
             {
                 Vector2 uv = new Vector2((float)i / width * scale,(float) j / height * scale);
-                Debug.Log(uv);
                 float minDist = float.MaxValue;
 
                 int x = (int)uv.x;
@@ -223,8 +222,102 @@ static public class NoiseGenerator
             }
         }
 
-
         return noise;
+    }
+
+    /// <summary>
+    /// Create a binary space partition with holes to connect the spaces
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="heigth"></param>
+    /// <param name="maxIteration"></param>
+    /// <param name="wallThickness"></param>
+    /// <param name="minimumSpace"></param>
+    /// <param name="holeSize"></param>
+    /// <returns></returns>
+    static public float[,] GenerateBinarySpacePartition(int width, int height, int maxIteration, int wallThickness, int minimumSpace, int holeSize)
+    {
+        float[,] spacePartition = new float[width, height];
+
+        List<Vector2Int> holesPositions = new List<Vector2Int>();
+        List<Vector4> rectangles = new List<Vector4>();
+
+        rectangles.Add(new Vector4(0, 0, width, height));
+
+        float cutOrientation;
+        int cutSize;
+        Vector4 currentRectangle;
+        for (int i = 0; i < maxIteration; i++)
+        {
+            currentRectangle = rectangles.ElementAt((int)UnityEngine.Random.Range(0, rectangles.Count - 1));
+
+            cutOrientation = UnityEngine.Random.value;
+            if (cutOrientation > 0.5f)
+            {
+                //vertical cut
+                if (currentRectangle.z - wallThickness - 2 * minimumSpace < 0 )
+                {
+                    continue;
+                }
+                cutSize = (int)UnityEngine.Random.Range(minimumSpace, currentRectangle.z - wallThickness - minimumSpace);
+                Vector4 rectLeft = new Vector4(currentRectangle.x, currentRectangle.y, cutSize, currentRectangle.w);
+                Vector4 rectRight = new Vector4(currentRectangle.x + cutSize + wallThickness, currentRectangle.y, currentRectangle.z - cutSize - wallThickness, currentRectangle.w);
+                rectangles.Remove(currentRectangle);
+                rectangles.Add(rectLeft);
+                rectangles.Add(rectRight);
+
+                holesPositions.Add(new Vector2Int((int)rectLeft.x + cutSize, (int)UnityEngine.Random.Range(rectLeft.y, rectLeft.y + rectLeft.w)));
+
+            }
+            else
+            {
+                //horizonal cut
+                if (currentRectangle.w - wallThickness - 2 * minimumSpace < 0)
+                {
+                    continue;
+                }
+                cutSize = (int)UnityEngine.Random.Range(minimumSpace, currentRectangle.w - wallThickness - minimumSpace);
+                Vector4 rectUp = new Vector4(currentRectangle.x, currentRectangle.y, currentRectangle.z, cutSize);
+                Vector4 rectDown = new Vector4(currentRectangle.x, currentRectangle.y + cutSize + wallThickness, currentRectangle.z, currentRectangle.w - cutSize - wallThickness);
+                rectangles.Remove(currentRectangle);
+                rectangles.Add(rectUp);
+                rectangles.Add(rectDown);
+
+                holesPositions.Add(new Vector2Int((int)UnityEngine.Random.Range(rectUp.x, rectUp.x + rectUp.z), (int)rectUp.y + cutSize));
+            }
+
+        }
+
+        foreach (var rect in rectangles)
+        {
+            int x = (int)rect.x;
+            int y = (int)rect.y;
+            for (int i = 0; i < rect.z; i++)
+            {
+                for (int j = 0; j < rect.w; j++)
+                {
+                    spacePartition[x + i, y + j] = 1f;
+                }
+            }
+        }
+
+        foreach (var pos in holesPositions)
+        {
+            for (int i = 0; i < holeSize; i++)
+            {
+                for (int j = 0; j < holeSize; j++)
+                {
+                    if(pos.x + i < width && pos.y + j < height)
+                    {
+                        spacePartition[pos.x + i, pos.y + j] = 1f;
+                    } 
+                    
+                }
+            }
+        }
+
+
+        return spacePartition;
     }
 
     /// <summary>
@@ -238,7 +331,7 @@ static public class NoiseGenerator
 
         for(int x = 0; x < noiseArray.GetLength(0); x++)
         {
-            for(int y = 0;y < noiseArray.GetLength(1); y++)
+            for(int y = 0; y < noiseArray.GetLength(1); y++)
             {
                 float value = noiseArray[x,y];
                 Color color = new Color(value, value, value);

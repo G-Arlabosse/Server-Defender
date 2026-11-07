@@ -5,7 +5,7 @@ public class MapGenerator : MonoBehaviour
 {
     [SerializeField] private TilesManager tilesManager;
 
-    enum GenType {PERLIN, WORMS, VORONOI};
+    enum GenType {PERLIN, WORMS, VORONOI, BSP};
 
     [SerializeField] private GenType genType;
 
@@ -39,6 +39,18 @@ public class MapGenerator : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float voronoiTreshold = 0.5f;
 
+    [Range(1, 100)]
+    [SerializeField] private int BSPMaxIteration = 20;
+
+    [Range(1, 50)]
+    [SerializeField] private int BSPWallThickness = 5;
+
+    [Range(1, 50)]
+    [SerializeField] private int BSPMinimumSpace = 20;
+
+    [Range(1, 50)]
+    [SerializeField] private int BSPHoleSize = 5;
+
     private float[,] mapArray;
     private Vector2Int startPosition; 
 
@@ -65,6 +77,9 @@ public class MapGenerator : MonoBehaviour
                 break;
             case GenType.VORONOI:
                 mapArray = NoiseGenerator.GetBinaryNoise(NoiseGenerator.GenerateVoronoiNoise(width, height, voronoiScale), voronoiTreshold);
+                break;
+            case GenType.BSP:
+                mapArray = NoiseGenerator.GenerateBinarySpacePartition(width, height, BSPMaxIteration, BSPWallThickness, BSPMinimumSpace, BSPHoleSize);
                 break;
         }
 
