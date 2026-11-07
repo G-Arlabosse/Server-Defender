@@ -1,5 +1,7 @@
 using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
+using Unity.Collections;
 
 public class ShooterManager : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class ShooterManager : MonoBehaviour
     /// The actual target of the tower. Need to be seen and alive.
     /// </summary>
     [HideInInspector]
-    public GameObject target;
+    public List<GameObject> targets = new List<GameObject>();
 
     /// <summary>
     /// The time between two shoot
@@ -45,16 +47,15 @@ public class ShooterManager : MonoBehaviour
     /// </summary>
     private void shoot()
     {
-        print("fire");
         reloadTime = fireRate;
         Projectile new_proj = Instantiate(projectile, shootFrom, Quaternion.identity).GetComponent<Projectile>();
-        new_proj.target = target;
+        new_proj.target = targets[0];
     }
 
     void Update()
     {
         
-        if (target != null && reloadTime == 0)
+        if (targets.Count > 0 && reloadTime == 0)
         {
             shoot();
         }

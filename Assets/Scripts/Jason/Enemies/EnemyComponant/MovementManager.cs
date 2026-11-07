@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class MovementManager : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rigidBody;
+   [SerializeField] private Rigidbody rigidBody;
+   [SerializeField] private EnemyCorp enemyCorp;
+
 
     private List<Vector3> destinations = new List<Vector3>();
-    private Vector3 destination;
+    public Vector3 destination;
     private bool isMoving = false;
 
     /// <summary>
@@ -39,7 +42,12 @@ public class Enemy : MonoBehaviour
         Vector3 bBis = new Vector3(b.x, a.y, b.z);
 
         return Vector3.MoveTowards(aBis, bBis, Speed);
+    }
 
+    public void Clear()
+    {
+        isMoving = false;
+        destinations.Clear();
     }
 
     /// <summary>
@@ -89,25 +97,29 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void AddDestination(Vector2 destination) { AddDestination(new Vector3(destination.x, transform.position.y, destination.y)); }
 
-    private void Start()
+
+   private void Start()
     {
         if (rigidBody == null)
         {
             rigidBody = GetComponent<Rigidbody>();
-
             Assert.IsNotNull(rigidBody);
         }
 
-        GoTo(new Vector3(3, 0, 3));
-        AddDestination(new Vector3(-3, 0, 3));
-        AddDestination(new Vector3(-3, 0, -3));
-        AddDestination(new Vector3(3, 0, 3));
+        if (enemyCorp == null)
+        {
+            enemyCorp = GetComponent<EnemyCorp>();
+            Assert.IsNotNull(enemyCorp);
+        }
     }
 
 
-    private void FixedUpdate()
+    public void FixedMovement()
     {
+        if (!enemyCorp.alive)
+            return;
 
         if (isMoving)
         {
