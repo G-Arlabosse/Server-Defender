@@ -1000,9 +1000,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
+      propertyPath: startRadius
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
       propertyPath: tilesManager
       value: 
       objectReference: {fileID: 2091437994}
+    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
+      propertyPath: minimumStartSpace
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
