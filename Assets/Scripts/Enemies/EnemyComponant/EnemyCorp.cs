@@ -5,9 +5,15 @@ using UnityEngine;
 
 public class EnemyCorp : MonoBehaviour
 {
-    [SerializeField] private MovementManager movementManager;
-    [SerializeField] private AttackManager attackManager;
 
+    private int hp = 5;
+
+    [SerializeField] 
+    private MovementManager movementManager;
+    [SerializeField] 
+    private AttackManager attackManager;
+
+    [HideInInspector]
     public Vector3 baseLocation;
 
     [HideInInspector]
@@ -42,10 +48,10 @@ public class EnemyCorp : MonoBehaviour
     public void Activate(Vector3 position)
     {
         alive = true;
+        hp = 5;
         gameObject.SetActive(true);
 
         transform.position = position;
-        print(transform.position);
 
     }
 
@@ -58,5 +64,13 @@ public class EnemyCorp : MonoBehaviour
             movementManager.FixedMovement();
         else
             attackManager.FixedAttack();
+    }
+
+    public void getHit(int dmg)
+    {
+        hp -= dmg;
+
+        if (hp <= 0)
+            Deactivate();
     }
 }

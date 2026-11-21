@@ -13,7 +13,9 @@ public abstract class Factory<T> : MonoBehaviour where T : MonoBehaviour
 
     private void OnValidate()
     {
-        if (prefab.GetComponent<T>() == null) { prefab = null; }
+        if (prefab == null) return; 
+
+        if (prefab.GetComponent<T>() == null) prefab = null;
     }
 
     private T Create(bool available)
@@ -27,7 +29,7 @@ public abstract class Factory<T> : MonoBehaviour where T : MonoBehaviour
         return component;
     }
 
-    public virtual T getOne()
+    public virtual T GetOne()
     {
         int count = components.Count;
 

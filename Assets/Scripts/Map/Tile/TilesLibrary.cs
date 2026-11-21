@@ -21,14 +21,23 @@ public class TilesLibrary : MonoBehaviour
     /// <item>
     /// WALL -> Tile with something that does nothing on it
     /// </item>
+    /// <item>
+    /// TOWER -> Tile with a tower on it
+    /// </item>
+    /// <item>
+    /// BASE -> Tile with the base on it
+    /// </item>
+    /// <item>
+    /// ENEMY_SPAWN -> Tile with an enemy spawner on it
+    /// </item>
     /// </list>
     /// </summary>
-    public enum TileType {NONE, BLANK, WALL, BASE, ENEMY_SPAWN}
+    public enum TileType {NONE, BLANK, WALL, TOWER, BASE, ENEMY_SPAWN}
     /// <summary>
     /// Number of type in the enum TileType above.
     /// Need to be incremented each time a new Tile type is added
     /// </summary>
-    private const int MAX_TILE_TYPE = 5;
+    private const int MAX_TILE_TYPE = 6;
 
     [Serializable]
     private class TileUnitInput

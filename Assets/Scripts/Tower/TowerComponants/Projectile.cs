@@ -29,7 +29,9 @@ public class Projectile : MonoBehaviour
     {
         if (other.gameObject.Equals(target))
             {
-                print("target hits");
+                EnemyCorp enemyCorp = target.GetComponent<EnemyCorp>();
+                if (enemyCorp != null)
+                    enemyCorp.getHit(1);
                 Destroy(this.gameObject);
             }
     }

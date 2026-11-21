@@ -19,9 +19,15 @@ public class EnemyManager : MonoBehaviour
             Assert.IsNotNull(enemyFactory);
         }
 
-        baseGoal = tilesManager.getPositionBase();
-
-        StartCoroutine(spawner());
+        if (tilesManager != null)
+        {
+            baseGoal = tilesManager.getPositionBase();
+            StartCoroutine(spawner());
+        }
+        else
+        {
+            Debug.LogError("TilesManager is not assigned in EnemyManager.");
+        }
 
         
     }
@@ -31,7 +37,7 @@ public class EnemyManager : MonoBehaviour
     {
 
 
-        EnemyCorp newEnemy = enemyFactory.getOne();
+        EnemyCorp newEnemy = enemyFactory.GetOne();
         newEnemy.Activate(tilesManager.getPositionSpawner(0));
         newEnemy.GoTo(baseGoal);
         newEnemy.baseLocation = baseGoal;

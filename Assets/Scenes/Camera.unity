@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1839735485 &681558425 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 239335035911514323, guid: 28d6200aa3361a34b810bb7d131ed015, type: 3}
+  m_PrefabInstance: {fileID: 1522416213}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &939940967
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,9 +274,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a925db1a691457c4097d1d825d8b7794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraManager
-  cam: {fileID: 0}
+  cam: {fileID: 939940969}
   INITIAL_CAMERA_POSITION: {x: 7, y: 7}
   INITIAL_CAMERA_HEIGHT: 10
+  tileMap: {fileID: 681558425}
 --- !u!1 &1517156853
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,13 +453,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3427016217531032808, guid: 28d6200aa3361a34b810bb7d131ed015, type: 3}
+      propertyPath: tiles.Array.data[0].id
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5247444150454294557, guid: 28d6200aa3361a34b810bb7d131ed015, type: 3}
       propertyPath: baseLocation.x
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5247444150454294557, guid: 28d6200aa3361a34b810bb7d131ed015, type: 3}
       propertyPath: baseLocation.y
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5247444150454294557, guid: 28d6200aa3361a34b810bb7d131ed015, type: 3}
       propertyPath: enemySpawnerLocation.Array.data[1].x
@@ -461,7 +471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5247444150454294557, guid: 28d6200aa3361a34b810bb7d131ed015, type: 3}
       propertyPath: enemySpawnerLocation.Array.data[2].x
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5247444150454294557, guid: 28d6200aa3361a34b810bb7d131ed015, type: 3}
       propertyPath: enemySpawnerLocation.Array.data[2].y
