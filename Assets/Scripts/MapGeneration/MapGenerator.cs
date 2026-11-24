@@ -1,5 +1,6 @@
-using System;
 using UnityEngine;
+using System.Collections.Generic;
+
 
 public class MapGenerator : MonoBehaviour
 {
@@ -196,5 +197,18 @@ public class MapGenerator : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Return a list of a nbSpawn points for ennemies for a part of the map
+    /// </summary>
+    /// <param name="nbSpawn"></param>
+    /// <param name="currentWidth"></param>
+    /// <param name="currentHeight"></param>
+    /// <returns></returns>
+    public List<Vector2Int> GetEnemySpawnPoints(int nbSpawn, int currentWidth, int currentHeight)
+    {
+        List<Vector2Int> spawnPoints = new List<Vector2Int>();
+
+        return spawnPoints;
+    }
 
 }
