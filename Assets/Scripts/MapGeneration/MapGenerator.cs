@@ -64,18 +64,18 @@ public class MapGenerator : MonoBehaviour
         GenerateMap();
     }
 
-    private void SetStartPosition()
+    private bool SetStartPosition()
     {
         if (mapArray == null)
         {
             Debug.LogAssertion("No map array");
-            return;
+            return false;
         }
 
         if (startRadius > width/2 || startRadius > height/2)
         {
             Debug.LogAssertion("Start radius must not be greater than half the width or height");
-            return;
+            return false;
         }
 
         
@@ -96,7 +96,7 @@ public class MapGenerator : MonoBehaviour
                         if (CheckNeighboors(new Vector2Int(testX, testY), minimumStartSpace))
                         {
                             startPosition = new Vector2Int(testX, testY);
-                            return;
+                            return true;
                         }
                         
                     }
@@ -107,8 +107,8 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        Debug.LogAssertion("No valid start position found in start radius");
-        return;
+        //Debug.LogAssertion("No valid start position found in start radius");
+        return false;
 
 
 
@@ -136,10 +136,12 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-    public void GenerateMap()
-    {
-        tilesManager.ResetTileMap();
-        switch(genType)
+    /// <summary>
+    /// Generate map array based on parameters
+    /// </summary>
+    private void GenerateMapArray() {
+
+        switch (genType)
         {
             case GenType.PERLIN:
                 mapArray = NoiseGenerator.GetBinaryNoise(NoiseGenerator.GeneratePerlinNoise(width, height, scale), perlinTreshold);
@@ -154,8 +156,21 @@ public class MapGenerator : MonoBehaviour
                 mapArray = NoiseGenerator.GenerateBinarySpacePartition(width, height, BSPMaxIteration, BSPWallThickness, BSPMinimumSpace, BSPHoleSize);
                 break;
         }
+    }
 
-        SetStartPosition();
+    /// <summary>
+    /// Generate map array and start position and places tiles to create map
+    /// </summary>
+    public void GenerateMap()
+    {
+        tilesManager.ResetTileMap();
+        GenerateMapArray();
+
+        while (!SetStartPosition())
+        {
+            Debug.Log("regenerating array");
+            GenerateMapArray();
+        }
         print(startPosition);
         Vector3Int pos = Vector3Int.zero;
         for (int i = 0; i < mapArray.GetLength(0); i++)
