@@ -25,7 +25,6 @@ public class PlayerCore : MonoBehaviour
             Assert.IsNotNull(playerController, "PlayerController component is missing from the GameObject.");
         }
 
-        CreateTower();
     }
 
 
@@ -36,11 +35,16 @@ public class PlayerCore : MonoBehaviour
 
         Vector3 position = cameraManager.GetPositionFromMouse();
 
-        //if (position == Vector3.zero) return;
+        if (position == Vector3.zero) 
+        {
+            Debug.LogWarning("Invalid tower position.");
+            return;
+        }
 
-        if (money < towerCost) return;
+        if (money < towerCost) 
+            return;
 
-        bool success = playerCommunicant.CreateTower(new Vector3(3, 0, 3));
+        bool success = playerCommunicant.CreateTower(position);
 
         if (success)
         {

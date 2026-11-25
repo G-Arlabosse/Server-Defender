@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
-public class EnemyCorp : MonoBehaviour
+public class EnemyCorp : MonoBehaviour, IFactoryObject
 {
 
     private int hp = 5;
@@ -35,7 +35,6 @@ public class EnemyCorp : MonoBehaviour
             Assert.IsNotNull(attackManager);
         }
 
-        Deactivate();
     }
 
     public void Deactivate()

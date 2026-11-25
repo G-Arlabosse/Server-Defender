@@ -29,6 +29,8 @@ public class TilesManager : MonoBehaviour
     /// <returns></returns>
     [SerializeField] public List<Vector2Int> enemySpawnerLocation = new List<Vector2Int>();
 
+    private string defaultTileName;
+
     static public TilesManager Instance { get; private set; }
 
     /// <summary>
@@ -78,7 +80,7 @@ public class TilesManager : MonoBehaviour
     /// <returns></returns>
     static public Vector3 getCenterPosition(Vector3 position)
     {
-        return new Vector3( ((int) position.x) + 0.5f, 0, ((int) position.y) + 0.5f);
+        return new Vector3( ((int) position.x) + 0.5f, 0, ((int) position.z) + 0.5f);
     }
 
     /// <summary>
@@ -208,6 +210,8 @@ public class TilesManager : MonoBehaviour
     {
         Instance = this;
 
+        defaultTileName = TilesLibrary.GetTile(TilesLibrary.TileType.BLANK).tile.gameObject.name;
+
         int x = baseLocation.x;
         int y = baseLocation.y;
 
@@ -228,14 +232,21 @@ public class TilesManager : MonoBehaviour
     /// <returns></returns>
     public bool CanPlaceTower(Vector3Int position)
     {
-        TileBase tile = tileMap.GetTile(position);
+        Tile tile = tileMap.GetTile<Tile>(position);
+        if (tile == null)
+        {
+            return false; // Can't place tower on non-existent tiles
+        }
+
+        GameObject tileGameObject = tileMap.GetTile<Tile>(position).gameObject;
 
         // Check if the tile is a blank tile
-        if (tile == null || tile != TilesLibrary.GetTile(TilesLibrary.TileType.BLANK).tile)
+        if (tileGameObject == null || tileGameObject.name != defaultTileName)
         {
             return false; // Can't place tower on non-blank tiles
         }
 
+        tileMap.SetTile(position, TilesLibrary.GetTile(TilesLibrary.TileType.TOWER).tile);
         return true; // Can place tower on blank tiles
     }
 

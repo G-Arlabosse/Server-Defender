@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour, IFactoryObject
 {
     private float speed = 8;
 
@@ -17,6 +17,7 @@ public class Projectile : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
         }
+
     }
 
 
@@ -32,8 +33,23 @@ public class Projectile : MonoBehaviour
                 EnemyCorp enemyCorp = target.GetComponent<EnemyCorp>();
                 if (enemyCorp != null)
                     enemyCorp.getHit(1);
-                Destroy(this.gameObject);
+                Deactivate();
             }
+    }
+
+    public void Activate(GameObject newTarget, Vector3 position)
+    {
+        target = newTarget;
+        transform.position = position;
+        gameObject.SetActive(true);
+    }
+
+
+    public void Deactivate()
+    {
+        target = null;
+        transform.position = new Vector3(-100, -100, -100);
+        gameObject.SetActive(false);
     }
 
 }

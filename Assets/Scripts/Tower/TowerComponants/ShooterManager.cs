@@ -31,9 +31,14 @@ public class ShooterManager : MonoBehaviour
     /// </summary>
     private float reloadTime = 0;
 
+    private Factory<Projectile> projectileFactory;
+
     private void Start()
     {
+        projectileFactory = Factory<Projectile>.instance;
+
         Assert.IsNotNull(projectile);
+        projectileFactory = Factory<Projectile>.instance;
 
         if (head == null)
             shootFrom = transform.position;
@@ -48,8 +53,8 @@ public class ShooterManager : MonoBehaviour
     private void shoot()
     {
         reloadTime = fireRate;
-        Projectile new_proj = Instantiate(projectile, shootFrom, Quaternion.identity).GetComponent<Projectile>();
-        new_proj.target = targets[0];
+        Projectile new_proj = projectileFactory.GetOne();
+        new_proj.Activate(targets[0], shootFrom);
     }
 
     void Update()
