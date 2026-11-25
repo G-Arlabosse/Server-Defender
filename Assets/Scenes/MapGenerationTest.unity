@@ -996,69 +996,9 @@ PrefabInstance:
       value: MapGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: scale
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: width
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: height
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: genType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: nbWorms
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: wormWidth
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: wormLength
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: startRadius
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
       propertyPath: tilesManager
       value: 
       objectReference: {fileID: 2091437994}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: perlinTreshold
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: BSPMaxIteration
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: BSPMinimumSpace
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: voronoiTreshold
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: BSPWallThickness
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: wormDistTreshold
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7164444533338789776, guid: d26ef6b5b3852524895b27541a05e290, type: 3}
-      propertyPath: minimumStartSpace
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

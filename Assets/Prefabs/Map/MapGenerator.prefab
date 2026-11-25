@@ -45,18 +45,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
   tilesManager: {fileID: 0}
-  genType: 3
-  width: 100
-  height: 100
-  perlinTreshold: 0.35
-  scale: 10
-  wormWidth: 4
-  wormDistTreshold: 30
-  nbWorms: 75
-  wormLength: 60
+  genType: 1
+  width: 50
+  height: 50
+  perlinTreshold: 0.25
+  scale: 15
+  wormWidth: 3
+  wormDistTreshold: 15
+  nbWorms: 45
+  wormLength: 30
   voronoiScale: 10
-  voronoiTreshold: 0.35
-  BSPMaxIteration: 100
-  BSPWallThickness: 3
-  BSPMinimumSpace: 15
+  voronoiTreshold: 0.25
+  BSPMaxIteration: 50
+  BSPWallThickness: 2
+  BSPMinimumSpace: 5
   BSPHoleSize: 5
+  startRadius: 10
+  minimumStartSpace: 3
