@@ -1,16 +1,22 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private PlayerCore playerCore;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        
+        if (playerCore == null)
+        {
+            playerCore = GetComponent<PlayerCore>();
+            Assert.IsNotNull(playerCore, "PlayerCore component is missing from the GameObject.");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnAddTower()
     {
-        
+        playerCore.CreateTower();
     }
 }

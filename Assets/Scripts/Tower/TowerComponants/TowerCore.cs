@@ -4,24 +4,17 @@ using NUnit.Framework;
 using UnityEngine;
 
 
-public class TowerCore : MonoBehaviour
+public class TowerCore : MonoBehaviour, IFactoryObject
 {
- 
-
-    void Start()
-    {
-        Deactivate();
-    }
 
 
     public void Activate(Vector3 position)
     {
         transform.position = position;
         gameObject.SetActive(true);
-        print("activated tower at: " + position);
     }
 
-    private void Deactivate()
+    public void Deactivate()
     {
         gameObject.SetActive(false);
     }
