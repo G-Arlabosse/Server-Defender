@@ -3,11 +3,13 @@ using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class Factory<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class Factory<T> : MonoBehaviour where T : MonoBehaviour, IFactoryObject
 {
     [SerializeField] public GameObject prefab;
     [SerializeField] private int nmbPrepared;
     private List<T> components = new List<T>();
+    
+    static public Factory<T> instance;
 
     private static readonly Vector3 DEFAULT_POSITION = new Vector3(-100, -100, -100);
 
@@ -18,11 +20,12 @@ public abstract class Factory<T> : MonoBehaviour where T : MonoBehaviour
         if (prefab.GetComponent<T>() == null) prefab = null;
     }
 
-    private T Create(bool available)
+    private T Create()
     {
         GameObject gameObject = Instantiate(prefab, DEFAULT_POSITION, Quaternion.identity);
 
         T component = gameObject.GetComponent<T>();
+        component.Deactivate();
 
         components.Add(component);
 
@@ -41,7 +44,7 @@ public abstract class Factory<T> : MonoBehaviour where T : MonoBehaviour
             }
         }
 
-        return Create(false);
+        return Create();
     }
 
     public virtual void Remove(T objectToRemove)
@@ -51,9 +54,11 @@ public abstract class Factory<T> : MonoBehaviour where T : MonoBehaviour
 
     private void Start()
     {
+        instance = this;
+
         for (int i=0; i<nmbPrepared ; i++)
         {
-            Create(true);
+            Create();
         }
     }
 }

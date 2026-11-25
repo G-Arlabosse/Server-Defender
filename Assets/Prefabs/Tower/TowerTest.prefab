@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4703209182362425626}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.5, z: 0}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShooterManager
   projectile: {fileID: 3157576460989440240, guid: c523ed077280b024ab3dffdece7b72b0, type: 3}
   head: {fileID: 4703209182362425626}
-  target: {fileID: 0}
+  targets: []
 --- !u!1 &5788481441050948210
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,8 +238,8 @@ Transform:
   m_GameObject: {fileID: 5788481441050948210}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 4, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 344172021139593511}

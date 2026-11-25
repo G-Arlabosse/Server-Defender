@@ -30,7 +30,7 @@ public class TowerManager : MonoBehaviour
     public TowerCore CreateTower(Vector3 position)
     {
 
-        TowerCore tower = towerFactory.GetOne().GetComponent<TowerCore>();
+        TowerCore tower = towerFactory.GetOne();
         tower.Activate(position);
         
         return tower;

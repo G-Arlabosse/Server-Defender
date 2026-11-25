@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 6167636459897330148}
   - component: {fileID: 5770013513754284824}
   - component: {fileID: 2827944516738576180}
+  - component: {fileID: 1686936057793821240}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -275,3 +276,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerFactory
   prefab: {fileID: 4963770512448261041, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
   nmbPrepared: 3
+--- !u!114 &1686936057793821240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6725844553118609667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e17fae912839048978758d012ae620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileFactory
+  prefab: {fileID: 3157576460989440240, guid: c523ed077280b024ab3dffdece7b72b0, type: 3}
+  nmbPrepared: 10
