@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: eec5d64d5652fc049aea2a53abe37f43
+<<<<<<<< HEAD:Assets/Prefabs/Player.meta
+guid: 93bf00d0030958645bcf6e87275bd767
+========
+guid: 64b7e3f089b2e1a4dbe85d15caf410a1
+>>>>>>>> poc-gen-proc-map:Assets/Materials/Textures.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

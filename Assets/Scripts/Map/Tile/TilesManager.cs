@@ -210,6 +210,7 @@ public class TilesManager : MonoBehaviour
     {
         Instance = this;
 
+        /*
         defaultTileName = TilesLibrary.GetTile(TilesLibrary.TileType.BLANK).tile.gameObject.name;
 
         int x = baseLocation.x;
@@ -222,6 +223,12 @@ public class TilesManager : MonoBehaviour
         }
 
         CreateRectangle(x,y);
+        */
+    }
+
+    public void ResetTileMap()
+    {
+        tileMap.ClearAllTiles();
     }
 
     /// <summary>
