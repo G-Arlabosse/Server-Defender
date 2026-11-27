@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 344172021139593511}
   - component: {fileID: 5118262807168986945}
   - component: {fileID: 3206858840549242780}
-  - component: {fileID: 718440156022559578}
   - component: {fileID: 6534620160889557407}
   m_Layer: 0
   m_Name: TowerTest
@@ -163,7 +162,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerCorp
   detectionCollider: {fileID: 0}
   detectionManager: {fileID: 0}
-  shooterManager: {fileID: 0}
   targets: []
 --- !u!114 &3206858840549242780
 MonoBehaviour:
@@ -178,21 +176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   towerCore: {fileID: 0}
---- !u!114 &718440156022559578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4963770512448261041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68fceec0b819df5439ab3c20b89ad644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShooterManager
-  towerCore: {fileID: 0}
-  projectile: {fileID: 3157576460989440240, guid: c523ed077280b024ab3dffdece7b72b0, type: 3}
-  head: {fileID: 4703209182362425626}
 --- !u!136 &6534620160889557407
 CapsuleCollider:
   m_ObjectHideFlags: 0

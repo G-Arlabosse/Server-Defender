@@ -24,7 +24,7 @@ public class DetectionManager : MonoBehaviour
         if (body.tag == "Enemy")
         {
             print("enemy located");
-            towerCore.AddTarget(body.GetComponent<EnemyCorp>());
+            towerCore.AddTarget(body.GetComponent<EnemyCore>());
         }
     }
 

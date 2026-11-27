@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
-public class EnemyCorp : MonoBehaviour, IFactoryObject
+public class EnemyCore : MonoBehaviour, IFactoryObject
 {
 
-    private int hp = 5;
+    public int hp = 5;
 
     [SerializeField] 
     private MovementManager movementManager;

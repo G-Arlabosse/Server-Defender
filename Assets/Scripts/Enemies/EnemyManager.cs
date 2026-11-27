@@ -35,9 +35,7 @@ public class EnemyManager : MonoBehaviour
 
     public void SpawnEnemy()
     {
-
-
-        EnemyCorp newEnemy = enemyFactory.GetOne();
+        EnemyCore newEnemy = enemyFactory.GetOne();
         newEnemy.Activate(tilesManager.getPositionSpawner(0));
         newEnemy.GoTo(baseGoal);
         newEnemy.baseLocation = baseGoal;
@@ -49,9 +47,7 @@ public class EnemyManager : MonoBehaviour
 
         while(true)
         {
-            print("spawn in 2");
-            yield return new WaitForSeconds(2);
-            print("spawn in 0");
+            yield return new WaitForSeconds(0.5f);
             SpawnEnemy();
         }
         

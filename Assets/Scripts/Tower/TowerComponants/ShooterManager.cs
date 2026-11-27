@@ -53,7 +53,7 @@ public class ShooterManager : MonoBehaviour
     /// <summary>
     /// Call when need to shoot the next bullet
     /// </summary>
-    private void shoot(EnemyCorp target)
+    private void shoot(EnemyCore target)
     {
         reloadTime = fireRate;
         Projectile new_proj = projectileFactory.GetOne();
@@ -62,7 +62,7 @@ public class ShooterManager : MonoBehaviour
 
     void Update()
     {
-        EnemyCorp target = towerCore.GetOneTarget();
+        EnemyCore target = towerCore.GetOneTarget();
         
         if (target != null && reloadTime == 0)
         {

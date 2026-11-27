@@ -206,24 +206,27 @@ public class TilesManager : MonoBehaviour
         return new Vector3(baseLocation.x + 0.5f, 0, baseLocation.y + 0.5f);
     }
 
+    [SerializeField] bool debugJas = false;
     private void Start()
     {
         Instance = this;
 
-        /*
-        defaultTileName = TilesLibrary.GetTile(TilesLibrary.TileType.BLANK).tile.gameObject.name;
 
-        int x = baseLocation.x;
-        int y = baseLocation.y;
-
-        foreach (Vector2Int position in enemySpawnerLocation)
+        if (debugJas)
         {
-            x = Mathf.Max(position.x, x);
-            y = Mathf.Max(position.y, y);
-        }
+            defaultTileName = TilesLibrary.GetTile(TilesLibrary.TileType.BLANK).tile.gameObject.name;
 
-        CreateRectangle(x,y);
-        */
+            int x = baseLocation.x;
+            int y = baseLocation.y;
+
+            foreach (Vector2Int position in enemySpawnerLocation)
+            {
+                x = Mathf.Max(position.x, x);
+                y = Mathf.Max(position.y, y);
+            }
+
+            CreateRectangle(x,y);
+        }
     }
 
     public void ResetTileMap()

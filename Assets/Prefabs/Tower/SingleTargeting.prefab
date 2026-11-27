@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &174538308710600888
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 344172021139593511, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344172021139593511, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344172021139593511, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344172021139593511, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 344172021139593511, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344172021139593511, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344172021139593511, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344172021139593511, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344172021139593511, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344172021139593511, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4963770512448261041, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      propertyPath: m_Name
+      value: SingleTargeting
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4963770512448261041, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 1243548893720233890}
+  m_SourcePrefab: {fileID: 100100000, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+--- !u!1 &4839454799545354658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4703209182362425626, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+  m_PrefabInstance: {fileID: 174538308710600888}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5002282357517074425 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5118262807168986945, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+  m_PrefabInstance: {fileID: 174538308710600888}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5084228978821896969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0877b950ddd1cbe4faefdbb078b25704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerCorp
+--- !u!1 &5084228978821896969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4963770512448261041, guid: 0ab36275084653341a4116d0337e50b0, type: 3}
+  m_PrefabInstance: {fileID: 174538308710600888}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1243548893720233890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5084228978821896969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68fceec0b819df5439ab3c20b89ad644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShooterManager
+  towerCore: {fileID: 5002282357517074425}
+  projectile: {fileID: 3157576460989440240, guid: c523ed077280b024ab3dffdece7b72b0, type: 3}
+  head: {fileID: 4839454799545354658}

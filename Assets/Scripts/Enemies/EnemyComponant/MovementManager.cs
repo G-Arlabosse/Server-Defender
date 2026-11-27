@@ -7,7 +7,7 @@ using UnityEngine;
 public class MovementManager : MonoBehaviour
 {
    [SerializeField] private Rigidbody rigidBody;
-   [SerializeField] private EnemyCorp enemyCorp;
+   [SerializeField] private EnemyCore enemyCorp;
 
 
     private List<Vector3> destinations = new List<Vector3>();
@@ -110,7 +110,7 @@ public class MovementManager : MonoBehaviour
 
         if (enemyCorp == null)
         {
-            enemyCorp = GetComponent<EnemyCorp>();
+            enemyCorp = GetComponent<EnemyCore>();
             Assert.IsNotNull(enemyCorp);
         }
     }

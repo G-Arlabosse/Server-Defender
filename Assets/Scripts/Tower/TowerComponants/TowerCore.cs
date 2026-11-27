@@ -8,13 +8,12 @@ public class TowerCore : MonoBehaviour, IFactoryObject
 {
     [SerializeField] private CapsuleCollider detectionCollider;
     [SerializeField] private DetectionManager detectionManager;
-    [SerializeField] private ShooterManager shooterManager;
 
     /// <summary>
     /// The actual target of the tower. Need to be seen and alive.
     /// </summary>
     [HideInInspector]
-    public List<EnemyCorp> targets = new List<EnemyCorp>();
+    public List<EnemyCore> targets = new List<EnemyCore>();
 
     private const float GROUND_HEIGHT = 2;
     private const float FLY_HEIGHT = 8;
@@ -63,7 +62,7 @@ public class TowerCore : MonoBehaviour, IFactoryObject
         gameObject.SetActive(false);
     }
 
-    public EnemyCorp GetOneTarget()
+    public EnemyCore GetOneTarget()
     {
         if (targets.Count > 0)
             return targets[0];
@@ -71,7 +70,7 @@ public class TowerCore : MonoBehaviour, IFactoryObject
             return null;
     }
 
-    public void AddTarget(EnemyCorp target)
+    public void AddTarget(EnemyCore target)
     {
         targets.Add(target);
         SortTargets();

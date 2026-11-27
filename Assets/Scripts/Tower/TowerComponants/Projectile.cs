@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour, IFactoryObject
     private float speed = 8;
 
     [HideInInspector]
-    public EnemyCorp target;
+    public EnemyCore target;
 
 
     /// <summary>
@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour, IFactoryObject
     private void OnTriggerEnter(Collider other)
     {
         print("collide");
-        if (other.gameObject.GetComponent<EnemyCorp>().Equals(target))
+        if (other.gameObject.GetComponent<EnemyCore>().Equals(target))
             {
                 print("hit enemy");
                 if (target != null)
@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour, IFactoryObject
             }
     }
 
-    public void Activate(EnemyCorp newTarget, Vector3 position)
+    public void Activate(EnemyCore newTarget, Vector3 position)
     {
         target = newTarget;
         transform.position = position;
