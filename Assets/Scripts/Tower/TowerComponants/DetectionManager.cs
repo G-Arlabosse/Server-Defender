@@ -5,15 +5,15 @@ using UnityEngine;
 public class DetectionManager : MonoBehaviour
 {
 
-    [SerializeField] private ShooterManager shooterManager;
+    [SerializeField] private TowerCore towerCore;
 
     private void Start()
     {
-        if (shooterManager == null)
+        if (towerCore == null)
         {
-            shooterManager = GetComponent<ShooterManager>();
+            towerCore = GetComponent<TowerCore>();
 
-            Assert.IsNotNull(shooterManager);
+            Assert.IsNotNull(towerCore);
         }
     }
 
@@ -24,7 +24,7 @@ public class DetectionManager : MonoBehaviour
         if (body.tag == "Enemy")
         {
             print("enemy located");
-            shooterManager.targets.Add(body);
+            towerCore.AddTarget(body.GetComponent<EnemyCorp>());
         }
     }
 

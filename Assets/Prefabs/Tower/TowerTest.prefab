@@ -121,10 +121,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 344172021139593511}
-  - component: {fileID: 7476090187899286304}
   - component: {fileID: 5118262807168986945}
   - component: {fileID: 3206858840549242780}
   - component: {fileID: 718440156022559578}
+  - component: {fileID: 6534620160889557407}
   m_Layer: 0
   m_Name: TowerTest
   m_TagString: Untagged
@@ -149,8 +149,52 @@ Transform:
   - {fileID: 5989681825312066414}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7476090187899286304
-SphereCollider:
+--- !u!114 &5118262807168986945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4963770512448261041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0877b950ddd1cbe4faefdbb078b25704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerCorp
+  detectionCollider: {fileID: 0}
+  detectionManager: {fileID: 0}
+  shooterManager: {fileID: 0}
+  targets: []
+--- !u!114 &3206858840549242780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4963770512448261041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c7c2e7f8043edf4ab1010abaf58c381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tower
+  towerCore: {fileID: 0}
+--- !u!114 &718440156022559578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4963770512448261041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68fceec0b819df5439ab3c20b89ad644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShooterManager
+  towerCore: {fileID: 0}
+  projectile: {fileID: 3157576460989440240, guid: c523ed077280b024ab3dffdece7b72b0, type: 3}
+  head: {fileID: 4703209182362425626}
+--- !u!136 &6534620160889557407
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -167,49 +211,11 @@ SphereCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 5
+  serializedVersion: 2
+  m_Radius: 2
+  m_Height: 8
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5118262807168986945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4963770512448261041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0877b950ddd1cbe4faefdbb078b25704, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerCorp
---- !u!114 &3206858840549242780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4963770512448261041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c7c2e7f8043edf4ab1010abaf58c381, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tower
-  shooterManager: {fileID: 718440156022559578}
---- !u!114 &718440156022559578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4963770512448261041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68fceec0b819df5439ab3c20b89ad644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShooterManager
-  projectile: {fileID: 3157576460989440240, guid: c523ed077280b024ab3dffdece7b72b0, type: 3}
-  head: {fileID: 4703209182362425626}
-  targets: []
 --- !u!1 &5788481441050948210
 GameObject:
   m_ObjectHideFlags: 0

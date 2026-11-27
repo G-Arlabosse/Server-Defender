@@ -20,11 +20,13 @@ public class CameraManager : MonoBehaviour
     private float cameraSpeed = 20.0f;
     private float cameraRotationSpeed = 50.0f;
     
-
+    private int tilesLayerMask;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        tilesLayerMask = LayerMask.GetMask("Tiles");
+
         if (cam == null)
         {
             cam = GetComponent<Camera>();
@@ -51,7 +53,7 @@ public class CameraManager : MonoBehaviour
         //print(Input.mousePosition);
         Ray ray = cam.ScreenPointToRay(mousePosition);
         
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, tilesLayerMask))
         {
             return hit.point;
         }
@@ -104,7 +106,7 @@ public class CameraManager : MonoBehaviour
             if (mouseWorldPos == Vector3.zero) 
                 tileHighlight.transform.position = new Vector3(0, -1f, 0);
             else
-                tileHighlight.transform.position = TilesManager.getCenterPosition(mouseWorldPos) + new Vector3(0, 1f, 0); 
+                tileHighlight.transform.position = TilesManager.getCenterPosition(mouseWorldPos) + new Vector3(0, 0.1f, 0); 
         }
 
     }

@@ -8,8 +8,6 @@ public class AttackManager : MonoBehaviour
 
 
     public void FixedAttack()
-    {
-         print("I attack");
-    }
+    {    }
 
 }

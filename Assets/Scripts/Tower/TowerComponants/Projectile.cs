@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour, IFactoryObject
     private float speed = 8;
 
     [HideInInspector]
-    public GameObject target;
+    public EnemyCorp target;
 
 
     /// <summary>
@@ -16,6 +16,10 @@ public class Projectile : MonoBehaviour, IFactoryObject
         if (target != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+        }
+        else
+        {
+            Deactivate();
         }
 
     }
@@ -28,16 +32,17 @@ public class Projectile : MonoBehaviour, IFactoryObject
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.Equals(target))
+        print("collide");
+        if (other.gameObject.GetComponent<EnemyCorp>().Equals(target))
             {
-                EnemyCorp enemyCorp = target.GetComponent<EnemyCorp>();
-                if (enemyCorp != null)
-                    enemyCorp.getHit(1);
+                print("hit enemy");
+                if (target != null)
+                    target.getHit(1);
                 Deactivate();
             }
     }
 
-    public void Activate(GameObject newTarget, Vector3 position)
+    public void Activate(EnemyCorp newTarget, Vector3 position)
     {
         target = newTarget;
         transform.position = position;

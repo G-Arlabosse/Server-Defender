@@ -54,11 +54,11 @@ public class TilesManager : MonoBehaviour
     {
         Vector2Int positionInt = Vector2Int.zero;
         positionInt.x = (int) position.x;
-        positionInt.y = (int) position.y;
+        positionInt.y = (int) position.z;
 
         Vector2Int destinationInt = Vector2Int.zero;
         destinationInt.x = (int) destination.x;
-        destinationInt.y = (int) destination.y;
+        destinationInt.y = (int) destination.z;
 
         return distanceInInt(positionInt, destinationInt);
     }

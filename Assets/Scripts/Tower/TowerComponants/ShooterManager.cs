@@ -6,6 +6,8 @@ using Unity.Collections;
 public class ShooterManager : MonoBehaviour
 {
 
+    [SerializeField] private TowerCore towerCore;
+
     /// <summary>
     /// Can't be null !
     /// </summary>
@@ -16,11 +18,7 @@ public class ShooterManager : MonoBehaviour
     [SerializeField] private GameObject head;
     private Vector3 shootFrom;
 
-    /// <summary>
-    /// The actual target of the tower. Need to be seen and alive.
-    /// </summary>
-    [HideInInspector]
-    public List<GameObject> targets = new List<GameObject>();
+
 
     /// <summary>
     /// The time between two shoot
@@ -35,7 +33,12 @@ public class ShooterManager : MonoBehaviour
 
     private void Start()
     {
-        projectileFactory = Factory<Projectile>.instance;
+        if (towerCore == null)
+        {
+            towerCore = GetComponent<TowerCore>();
+
+            Assert.IsNotNull(towerCore);
+        }
 
         Assert.IsNotNull(projectile);
         projectileFactory = Factory<Projectile>.instance;
@@ -50,19 +53,20 @@ public class ShooterManager : MonoBehaviour
     /// <summary>
     /// Call when need to shoot the next bullet
     /// </summary>
-    private void shoot()
+    private void shoot(EnemyCorp target)
     {
         reloadTime = fireRate;
         Projectile new_proj = projectileFactory.GetOne();
-        new_proj.Activate(targets[0], shootFrom);
+        new_proj.Activate(target, shootFrom);
     }
 
     void Update()
     {
+        EnemyCorp target = towerCore.GetOneTarget();
         
-        if (targets.Count > 0 && reloadTime == 0)
+        if (target != null && reloadTime == 0)
         {
-            shoot();
+            shoot(target);
         }
         else if (reloadTime != 0)
         {

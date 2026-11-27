@@ -19,6 +19,11 @@ public class EnemyCorp : MonoBehaviour, IFactoryObject
     [HideInInspector]
     public bool alive = false;
 
+    public float DistanceToBase()
+    {
+        return baseLocation == null ? 0 : Vector3.Distance(transform.position, baseLocation);
+    }
+
     private void Start()
     {
         if (movementManager == null)
